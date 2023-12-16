@@ -4,7 +4,12 @@ updates:
     directory: "/"
     schedule:
       interval: daily
+    target-branch: "main"
+    open-pull-requests-limit: 20
+    
   - package-ecosystem: cargo
     directory: "/"
     schedule:
       interval: daily
+    target-branch: "main"
+    open-pull-requests-limit: 20
