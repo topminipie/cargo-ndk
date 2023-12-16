@@ -1,8 +1,11 @@
 use std::{
     env,
-    ffi::{OsStr, OsString},
+    //ffi::{OsStr, OsString},
+    ffi::OsString,
     fmt::Display,
     fs,
+    fs::File,
+    io::Read,
     io::{self, ErrorKind},
     panic::{self, PanicInfo},
     path::{Path, PathBuf},
@@ -133,6 +136,22 @@ fn derive_ndk_path(shell: &mut Shell) -> Option<(PathBuf, String)> {
 
     let ndk_dir = base_dir.join("Android").join("sdk").join("ndk");
     highest_version_ndk_in_path(&ndk_dir).map(|path| (path, "standard location".to_string()))
+}
+
+fn is_elf_file(path: &PathBuf) -> bool {
+    if !path.as_path().is_file() {
+        return false;
+    }
+    match File::open(path.as_path()) {
+        Ok(file) => {
+            let mut buffer = [0;4];
+            let _ = file.take(4).read(&mut buffer);
+            return &buffer[1..4] == "ELF".as_bytes();
+        },
+        Err(_) => {
+            return false;
+        }
+    }
 }
 
 fn print_usage() {
@@ -532,7 +551,8 @@ pub(crate) fn run(args: Vec<String>) -> anyhow::Result<()> {
                 Ok(dir) => dir
                     .filter_map(Result::ok)
                     .map(|x| x.path())
-                    .filter(|x| x.extension() == Some(OsStr::new("so")))
+                    //.filter(|x| x.extension() == Some(OsStr::new("so")))
+                    .filter(|x| is_elf_file(x))
                     .collect::<Vec<_>>(),
                 Err(e) => {
                     shell.error(format!("Could not read directory: {:?}", dir))?;
