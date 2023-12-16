@@ -1,6 +1,6 @@
 # cargo-ndk - Build Rust code for Android
 
-[<img alt="CI" src="https://github.com/bbqsrc/cargo-ndk/actions/workflows/ci.yml/badge.svg">](https://github.com/bbqsrc/cargo-ndk/actions)
+[<img alt="CI" src="https://github.com/topminipie/cargo-ndk/actions/workflows/ci.yml/badge.svg">](https://github.com/topminipie/cargo-ndk/actions)
 <img alt="Minimum supported Rust version: 1.68" src="https://img.shields.io/badge/MSRV-1.68-informational">
 
 This cargo extension handles all the environment configuration needed for successfully building libraries
@@ -9,7 +9,7 @@ for Android from a Rust codebase, with support for generating the correct `jniLi
 ## Installing
 
 ```
-cargo install cargo-ndk
+cargo install --git https://github.com/topminipie/cargo-ndk
 ```
 
 You'll also need to install all the toolchains you intend to use. Simplest way is with the following:
@@ -98,13 +98,11 @@ These environment variables are exported for use in build scripts and other down
 - macOS (`x86_64` and `arm64`)
 - Windows
 
-## Local development
+## Why not using cargo-ndk?
 
-`git clone` and then install the crate with `cargo`:
+There is no feature [#43](https://github.com/bbqsrc/cargo-ndk/pull/43) in [cargo-ndk](https://github.com/bbqsrc/cargo-ndk).
 
-```bash
-cargo install --path .
-```
+[Cargo-xdk](https://github.com/tiann/cargo-xdk) is no updated and synchronized with [cargo-ndk](https://github.com/bbqsrc/cargo-ndk).
 
 ## Similar projects
 
@@ -114,7 +112,7 @@ cargo install --path .
 
 This project is licensed under either of
 
- * Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
- * MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
+ * Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or https://www.apache.org/licenses/LICENSE-2.0)
+ * MIT license ([LICENSE-MIT](LICENSE-MIT) or https://opensource.org/licenses/MIT)
 
 at your option.
