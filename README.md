@@ -9,7 +9,7 @@ for Android from a Rust codebase, with support for generating the correct `jniLi
 ## Installing
 
 ```
-cargo install --git https://github.com/topminipie/cargo-ndk
+cargo install --git https://github.com/topminipie/cargo-ndk.git
 ```
 
 You'll also need to install all the toolchains you intend to use. Simplest way is with the following:
