@@ -2,6 +2,7 @@
 
 [<img alt="CI" src="https://github.com/topminipie/cargo-ndk/actions/workflows/ci.yml/badge.svg">](https://github.com/topminipie/cargo-ndk/actions/workflows/ci.yml)
 <img alt="Minimum supported Rust version: 1.70" src="https://img.shields.io/badge/MSRV-1.70-informational">
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
 
 This cargo extension handles all the environment configuration needed for successfully building libraries
 for Android from a Rust codebase, with support for generating the correct `jniLibs` directory structure.
