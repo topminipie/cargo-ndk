@@ -29,7 +29,7 @@ gumdrop = "0.8.1"
 is-terminal = "0.4.10"
 libc = "0.2.152"
 pathos = "0.3.0"
-serde = { version = "1.0.195", features = ["derive"] }
+serde = { version = "1.0.196", features = ["derive"] }
 termcolor = "1.4.1"
 toml = "0.8.8"
 version_check = "0.9.4"
