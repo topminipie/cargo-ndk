@@ -27,7 +27,7 @@ cargo_metadata = "0.18.1"
 dunce = "1.0.4"
 gumdrop = "0.8.1"
 is-terminal = "0.4.10"
-libc = "0.2.152"
+libc = "0.2.153"
 pathos = "0.3.0"
 serde = { version = "1.0.196", features = ["derive"] }
 termcolor = "1.4.1"
