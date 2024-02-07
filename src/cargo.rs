@@ -26,11 +26,10 @@ fn clang_target(rust_target: &str, api_level: u8) -> String {
 }
 
 fn sysroot_target(rust_target: &str) -> &str {
-    let target = match rust_target {
+    (match rust_target {
         "armv7-linux-androideabi" => "arm-linux-androideabi",
         _ => rust_target,
-    };
-    target
+    }) as _
 }
 
 fn ndk_tool(arch: &str, tool: &str) -> PathBuf {
@@ -231,7 +230,7 @@ pub(crate) fn run(
             cargo_ndk_sysroot_libs_path_key,
             &cargo_ndk_sysroot_libs_path,
         )
-        .env(cargo_ndk_sysroot_target_key, &cargo_ndk_sysroot_target)
+        .env(cargo_ndk_sysroot_target_key, cargo_ndk_sysroot_target)
         .env("_CARGO_NDK_LINK_TARGET", &clang_target) // Recognized by main() so we know when we're acting as a wrapper
         .env("_CARGO_NDK_LINK_CLANG", &target_cc);
 
@@ -251,16 +250,11 @@ pub(crate) fn run(
         cargo_cmd.env(bindgen_clang_args_key, bindgen_clang_args);
     }
 
-    match dir.parent() {
-        Some(parent) => {
-            if parent != dir {
-                // log::debug!("Working directory does not match manifest-path");
-                cargo_args.insert(arg_insertion_position, cargo_manifest.into());
-                cargo_args.insert(arg_insertion_position, "--manifest-path".into());
-            }
-        }
-        _ => {
-            // log::warn!("Parent of current working directory does not exist");
+    if let Some(parent) = dir.parent() {
+        if parent != dir {
+            // log::debug!("Working directory does not match manifest-path");
+            cargo_args.insert(arg_insertion_position, cargo_manifest.into());
+            cargo_args.insert(arg_insertion_position, "--manifest-path".into());
         }
     }
 

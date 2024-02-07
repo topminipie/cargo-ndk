@@ -138,19 +138,17 @@ fn derive_ndk_path(shell: &mut Shell) -> Option<(PathBuf, String)> {
     highest_version_ndk_in_path(&ndk_dir).map(|path| (path, "standard location".to_string()))
 }
 
-fn is_elf_file(path: &PathBuf) -> bool {
-    if !path.as_path().is_file() {
+fn is_elf_file(path: &Path) -> bool {
+    if !path.is_file() {
         return false;
     }
-    match File::open(path.as_path()) {
+    match File::open(path) {
         Ok(file) => {
             let mut buffer = [0; 4];
             let _ = file.take(4).read(&mut buffer);
             return &buffer[1..4] == "ELF".as_bytes();
         }
-        Err(_) => {
-            return false;
-        }
+        Err(_) => false,
     }
 }
 
@@ -465,7 +463,7 @@ pub(crate) fn run(args: Vec<String>) -> anyhow::Result<()> {
             )
         })?;
 
-        std::env::set_var("CARGO_NDK_OUTPUT_PATH", &output_dir);
+        std::env::set_var("CARGO_NDK_OUTPUT_PATH", output_dir);
     }
 
     shell.verbose(|shell| {
