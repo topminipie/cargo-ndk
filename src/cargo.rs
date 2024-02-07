@@ -250,16 +250,11 @@ pub(crate) fn run(
         cargo_cmd.env(bindgen_clang_args_key, bindgen_clang_args);
     }
 
-    match dir.parent() {
-        Some(parent) => {
-            if parent != dir {
-                // log::debug!("Working directory does not match manifest-path");
-                cargo_args.insert(arg_insertion_position, cargo_manifest.into());
-                cargo_args.insert(arg_insertion_position, "--manifest-path".into());
-            }
-        }
-        _ => {
-            // log::warn!("Parent of current working directory does not exist");
+    if let Some(parent) = dir.parent() {
+        if parent != dir {
+            // log::debug!("Working directory does not match manifest-path");
+            cargo_args.insert(arg_insertion_position, cargo_manifest.into());
+            cargo_args.insert(arg_insertion_position, "--manifest-path".into());
         }
     }
 
