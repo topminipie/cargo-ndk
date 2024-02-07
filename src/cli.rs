@@ -148,9 +148,7 @@ fn is_elf_file(path: &Path) -> bool {
             let _ = file.take(4).read(&mut buffer);
             return &buffer[1..4] == "ELF".as_bytes();
         }
-        Err(_) => {
-            false
-        }
+        Err(_) => false,
     }
 }
 
