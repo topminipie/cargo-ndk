@@ -144,10 +144,10 @@ fn is_elf_file(path: &PathBuf) -> bool {
     }
     match File::open(path.as_path()) {
         Ok(file) => {
-            let mut buffer = [0;4];
+            let mut buffer = [0; 4];
             let _ = file.take(4).read(&mut buffer);
             return &buffer[1..4] == "ELF".as_bytes();
-        },
+        }
         Err(_) => {
             return false;
         }
