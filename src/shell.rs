@@ -5,7 +5,7 @@ use std::io::prelude::*;
 
 use is_terminal::IsTerminal;
 use termcolor::Color::{Cyan, Green, Red, Yellow};
-use termcolor::{self, Color, ColorSpec, StandardStream, WriteColor};
+use termcolor::{Color, ColorSpec, StandardStream, WriteColor};
 
 pub enum TtyWidth {
     NoTty,
