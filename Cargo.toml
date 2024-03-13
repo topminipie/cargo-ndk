@@ -22,7 +22,7 @@ rust-version = "1.68"
 maintenance = { status = "actively-developed" }
 
 [dependencies]
-anyhow = "1.0.79"
+anyhow = "1.0.81"
 cargo_metadata = "0.18.1"
 dunce = "1.0.4"
 gumdrop = "0.8.1"
