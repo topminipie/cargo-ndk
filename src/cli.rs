@@ -153,7 +153,7 @@ fn is_elf_file(path: &Path) -> bool {
 }
 
 fn print_usage() {
-    println!("cargo-ndk <https://github.com/bbqsrc/cargo-ndk>\n\nUsage: cargo ndk [OPTIONS] <CARGO_ARGS>\n");
+    println!("cargo-ndk <https://github.com/topminipie/cargo-ndk>\n\nUsage: cargo ndk [OPTIONS] <CARGO_ARGS>\n");
     println!("{}", Args::usage());
 }
 
@@ -223,7 +223,7 @@ impl From<&str> for BuildMode {
 }
 
 fn is_supported_rustc_version() -> bool {
-    version_check::is_min_version("1.68.0").unwrap_or_default()
+    version_check::is_min_version("1.73.0").unwrap_or_default()
 }
 
 fn panic_hook(info: &PanicInfo<'_>) {
@@ -233,7 +233,7 @@ fn panic_hook(info: &PanicInfo<'_>) {
         for line in lines {
             println!("{}", line);
         }
-        shell.error("end of panic report. Please report the above to: <https://github.com/bbqsrc/cargo-ndk/issues>")?;
+        shell.error("end of panic report. Please report the above to: <https://github.com/topminipie/cargo-ndk/issues>")?;
         Ok(())
     }
 
@@ -304,7 +304,7 @@ pub(crate) fn run(args: Vec<String>) -> anyhow::Result<()> {
 
     if !is_supported_rustc_version() {
         shell.error("Rust compiler is too old and not supported by cargo-ndk.")?;
-        shell.note("Upgrade Rust to at least v1.68.0.")?;
+        shell.note("Upgrade Rust to at least v1.73.0.")?;
         std::process::exit(1);
     }
 
