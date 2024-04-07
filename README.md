@@ -101,7 +101,7 @@ These environment variables are exported for use in build scripts and other down
 - macOS (`x86_64` and `arm64`)
 - Windows
 
-## Why not using cargo-ndk?
+## Why not using cargo-ndk or cargo-xdk?
 
 There is no feature [#43](https://github.com/bbqsrc/cargo-ndk/pull/43) in [cargo-ndk](https://github.com/bbqsrc/cargo-ndk).
 
