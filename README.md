@@ -1,7 +1,7 @@
 # cargo-ndk - Build Rust code for Android
 
 [<img alt="CI" src="https://github.com/topminipie/cargo-ndk/actions/workflows/ci.yml/badge.svg">](https://github.com/topminipie/cargo-ndk/actions/workflows/ci.yml)
-<img alt="Minimum supported Rust version: 1.73" src="https://img.shields.io/badge/MSRV-1.70-informational">
+<img alt="Minimum supported Rust version: 1.73" src="https://img.shields.io/badge/MSRV-1.73-informational">
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE-APACHE)
 <sup>or</sup>
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE-MIT)
