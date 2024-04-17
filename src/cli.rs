@@ -1,9 +1,12 @@
 use std::{
     collections::BTreeMap,
     env,
-    ffi::{OsStr, OsString},
+    //ffi::{OsStr, OsString},
+    ffi::OsString,
     fmt::Display,
     fs,
+    fs::File,
+    io::Read,
     io::{self, ErrorKind},
     panic::{self, PanicInfo},
     path::{Path, PathBuf},
@@ -167,14 +170,28 @@ fn derive_ndk_path(shell: &mut Shell) -> Option<(PathBuf, String)> {
     highest_version_ndk_in_path(&ndk_dir).map(|path| (path, "standard location".to_string()))
 }
 
+fn is_elf_file(path: &Path) -> bool {
+    if !path.is_file() {
+        return false;
+    }
+    match File::open(path) {
+        Ok(file) => {
+            let mut buffer = [0; 4];
+            let _ = file.take(4).read(&mut buffer);
+            return &buffer[1..4] == "ELF".as_bytes();
+        }
+        Err(_) => false,
+    }
+}
+
 fn print_usage() {
-    println!("cargo-ndk <https://github.com/bbqsrc/cargo-ndk>\n\nUsage: cargo ndk [OPTIONS] <CARGO_ARGS>\n");
+    println!("cargo-ndk <https://github.com/topminipie/cargo-ndk>\n\nUsage: cargo ndk [OPTIONS] <CARGO_ARGS>\n");
     println!("{}", Args::usage());
 }
 
 fn print_usage_env() {
     println!(
-        "cargo-ndk-env <https://github.com/bbqsrc/cargo-ndk>\n\nUsage: cargo ndk-env [OPTIONS]\n"
+        "cargo-ndk-env <https://github.com/topminipie/cargo-ndk>\n\nUsage: cargo ndk-env [OPTIONS]\n"
     );
     println!("{}", ArgsEnv::usage());
 }
@@ -248,7 +265,7 @@ impl From<&str> for BuildMode {
 }
 
 fn is_supported_rustc_version() -> bool {
-    version_check::is_min_version("1.68.0").unwrap_or_default()
+    version_check::is_min_version("1.73.0").unwrap_or_default()
 }
 
 fn panic_hook(info: &PanicInfo<'_>) {
@@ -422,7 +439,7 @@ pub fn run(args: Vec<String>) -> anyhow::Result<()> {
 
     if !is_supported_rustc_version() {
         shell.error("Rust compiler is too old and not supported by cargo-ndk.")?;
-        shell.note("Upgrade Rust to at least v1.68.0.")?;
+        shell.note("Upgrade Rust to at least v1.73.0.")?;
         std::process::exit(1);
     }
 
@@ -581,7 +598,7 @@ pub fn run(args: Vec<String>) -> anyhow::Result<()> {
             )
         })?;
 
-        std::env::set_var("CARGO_NDK_OUTPUT_PATH", &output_dir);
+        std::env::set_var("CARGO_NDK_OUTPUT_PATH", output_dir);
     }
 
     shell.verbose(|shell| {
@@ -667,7 +684,8 @@ pub fn run(args: Vec<String>) -> anyhow::Result<()> {
                 Ok(dir) => dir
                     .filter_map(Result::ok)
                     .map(|x| x.path())
-                    .filter(|x| x.extension() == Some(OsStr::new("so")))
+                    //.filter(|x| x.extension() == Some(OsStr::new("so")))
+                    .filter(|x| is_elf_file(x))
                     .collect::<Vec<_>>(),
                 Err(e) => {
                     shell.error(format!("Could not read directory: {:?}", dir))?;

@@ -1,5 +1,10 @@
 ## Changelog
 
+### v3.5.5 - 2024-04-17 (topminipie)
+
+- Enhancement: all dependencies updated
+- Enhancement: use ELF Header to check output file [#43](https://github.com/bbqsrc/cargo-ndk/pull/43)
+
 ### v3.5.4 - 2024-04-13
 
 - Fix: add compile error if attempted to build for unsupported target OSes (please stop trying to build cargo-ndk *for* Android. Makes no sense.)

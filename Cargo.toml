@@ -1,10 +1,10 @@
 [package]
 name = "cargo-ndk"
-version = "3.5.4"
+version = "3.5.5"
 authors = ["Brendan Molloy <brendan@bbqsrc.net>"]
-repository = "https://github.com/bbqsrc/cargo-ndk"
+repository = "https://github.com/topminipie/cargo-ndk"
 documentation = "https://docs.rs/cargo-ndk"
-homepage = "https://github.com/bbqsrc/cargo-ndk"
+homepage = "https://github.com/topminipie/cargo-ndk"
 license = "Apache-2.0 OR MIT"
 description = "Makes building Rust libraries for Android simpler"
 keywords = ["ndk", "cargo", "android", "build"]
@@ -23,17 +23,17 @@ default-run = "cargo-ndk"
 maintenance = { status = "actively-developed" }
 
 [dependencies]
-anyhow = "1.0.75"
+anyhow = "1.0.82"
 cargo_metadata = "0.18.1"
 dunce = "1.0.4"
 gumdrop = "0.8.1"
-is-terminal = "0.4.9"
-libc = "0.2.147"
+is-terminal = "0.4.12"
+libc = "0.2.153"
 pathos = "0.3.0"
-serde = { version = "1.0.152", features = ["derive"] }
+serde = { version = "1.0.192", features = ["derive"] }
 serde_json = "1.0.115"
-termcolor = "1.2.0"
-toml = "0.8.8"
+termcolor = "1.4.1"
+toml = "0.8.12"
 version_check = "0.9.4"
 
 [target.'cfg(windows)'.dependencies]

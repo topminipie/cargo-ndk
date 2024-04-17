@@ -1,4 +1,11 @@
-on: [push, pull_request]
+on:
+  workflow_dispatch:
+  pull_request:
+    paths-ignore:
+      - "README.md"
+  push:
+    paths-ignore:
+      - "README.md"
 
 name: CI
 
@@ -15,23 +22,29 @@ jobs:
           - 1.73.0 # MSRV
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{ matrix.rust }}
           targets: aarch64-linux-android, armv7-linux-androideabi
           components: rustfmt, clippy
+
       - name: Run build
         run: cargo install --path .
+
       - name: Smoke test `ndk-env`
         run: cargo ndk-env
+
       - name: Run test
         working-directory: example
         run: cargo ndk -o jniLibs build -vv
+
       - name: Check code formatting
         continue-on-error: true
         run: cargo fmt --all -- --check
+
       - name: Run clippy
         continue-on-error: true
         run: cargo clippy -- -D warnings
