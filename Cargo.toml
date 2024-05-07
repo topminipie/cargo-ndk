@@ -23,7 +23,7 @@ default-run = "cargo-ndk"
 maintenance = { status = "actively-developed" }
 
 [dependencies]
-anyhow = "1.0.82"
+anyhow = "1.0.83"
 cargo_metadata = "0.18.1"
 dunce = "1.0.4"
 gumdrop = "0.8.1"
